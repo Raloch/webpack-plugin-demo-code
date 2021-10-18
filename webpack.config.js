@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExamplePlugin2 = require('./ExamplePlugin2')
+const ExamplePlugin = require('./ExamplePlugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
 module.exports = {
@@ -23,7 +23,12 @@ module.exports = {
       {
         test: /\.(css|less)$/,
         use: ['style-loader', 'css-loader', 'less-loader']
-      }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: path.resolve(__dirname, './exampleLoader.js'),
+      },
     ],
   },
   resolve: {
@@ -34,6 +39,6 @@ module.exports = {
       template: './index.html'
     }),
     // new CaseSensitivePathsPlugin(),
-    new ExamplePlugin2()
+    new ExamplePlugin()
   ],
 }
